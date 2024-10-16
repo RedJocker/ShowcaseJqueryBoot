@@ -25,7 +25,7 @@
 
         header .logo {
             flex-grow: 1;
-            /* border: 1px solid yellow;  */
+             border: 1px solid yellow;
         }
 
         header .logo img {
@@ -36,13 +36,50 @@
 
         header .title {
             flex-grow: 1;
-            /* border: 1px solid black; */
+             border: 1px solid black;
             text-align: center;
         }
 
         header .menu {
             flex-grow: 1;
-            /* border: 1px solid red; */
+             border: 1px solid red;
+        }
+
+
+        header .title {
+            flex-grow: 1;
+             border: 1px solid black;
+            text-align: center;
+        }
+
+        header .menu {
+            flex-grow: 1;
+             border: 1px solid red;
+        }
+
+        main {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            margin: 1rem 0.5rem 1rem 0.5rem;
+            gap: 1rem;
+        }
+
+        main article {
+            flex-grow: 1;
+            flex-shrink: 1;
+            min-width: 40ch;
+            background-color: #FDFDFD;
+            padding: 1rem;
+            border-radius: 1rem;
+        }
+
+        main aside {
+            flex-grow: 0;
+            flex-shrink: 2;
+            min-width: 40ch;
+            background-color: #FDFDFD;
+            border-radius: 1rem;
         }
 
     </style>
@@ -62,10 +99,11 @@
     <div id="main">
         <main>
             <article>
+                Description
 
             </article>
             <aside>
-
+                Caurosel
             </aside>
         </main>
     </div>
