@@ -39,5 +39,7 @@ out/
 ## gradle
 gradlew
 gradlew.bat
-
 gradle/wrapper/gradle-wrapper.jar
+
+## node
+**/node_modules
