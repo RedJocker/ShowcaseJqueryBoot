@@ -10,5 +10,8 @@
   "description": "",
   "devDependencies": {
     "jquery": "^3.7.1"
+  },
+  "dependencies": {
+    "@glidejs/glide": "^3.6.2"
   }
 }
