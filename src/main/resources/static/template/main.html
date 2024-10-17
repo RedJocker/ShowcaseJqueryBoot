@@ -1,0 +1,158 @@
+<main>
+    <style>
+        main {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            margin: 1rem 0.5rem 1rem 0.5rem;
+            gap: 1rem;
+        }
+
+        main article {
+            flex-grow: 3;
+            flex-shrink: 2;
+            max-width: 80ch;
+            min-width: 30ch;
+            background-color: #FDFDFD;
+            padding: 1rem;
+            border-radius: 1rem;
+        }
+
+        main aside {
+            flex-grow: 1;
+            flex-shrink: 4;
+            min-width: 40ch;
+            display: flow-root;
+            border: 1px solid magenta;
+            background-color: #FDFDFD;
+            padding: 1rem;
+            border-radius: 1rem;
+        }
+
+        li.glide__slide {
+            color: red;
+            background-color: #FDFDFD;
+            height: auto;
+        }
+
+        li.glide__slide .card {
+            border: 1px solid yellow;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 3rem;
+            margin-bottom: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-content: center;
+            aspect-ratio: 4 / 3;
+
+        }
+
+        li.glide__slide .card img {
+            border: 1px solid red;
+            width: 50%;
+            aspect-ratio: 3 / 4;
+            object-fit: scale-down;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        li.glide__slide .card h3 {
+            margin-top: auto;
+            margin-bottom: auto;;
+            max-width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .glide__arrow {
+            position: absolute;
+            display: block;
+            top: 50%;
+            z-index: 2;
+            color: rgb(0, 0 , 0);
+        }
+
+        .glide__bullet {
+            background-color: rgba(10, 15, 15, 0.5);
+        }
+
+    </style>
+
+    <article>
+        <h1>Description</h1>
+        <p></p>
+    </article>
+    <aside>
+        <div class="glide">
+            <div data-glide-el="track" class="glide__track">
+                <ul class="glide__slides">
+<!--                    productComponents-->
+                </ul>
+            </div>
+            <div class="glide__arrows" data-glide-el="controls">
+                <button class="glide__arrow glide__arrow--left" data-glide-dir="<">prev</button>
+                <button class="glide__arrow glide__arrow--right" data-glide-dir=">">next</button>
+            </div>
+            <div class="glide__bullets" data-glide-el="controls[nav]">
+<!--                bullets-->
+            </div>
+        </div>
+    </aside>
+
+    <script>
+        const g = new Glide('.glide', {
+            type: 'carousel',
+            startAt: 0,
+            perView: 1,
+            autoplay: false,
+            keyboard: true,
+            focusAt: "center",
+        })
+        let dataLst = []
+
+        $.get("../template/card.html", (cardTemplate) => {
+
+            $.get(`/product`, function(data) {
+                dataLst = data
+                const carousel = $(".glide__slides")
+                const nav = $(".glide__bullets")
+                carousel.html("")
+                nav.html("")
+                dataLst.forEach((d, i) => {
+                    const item = makeProductComponent(cardTemplate, d.name, d.imageUrl)
+                    carousel.append(item)
+                    const navBullet = makeProductBullet(i)
+                    nav.append(navBullet)
+
+                })
+                const paragraph = $("article p")
+                paragraph.text(dataLst[0].description + ": Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus alias amet at atque culpa cumque debitis deserunt distinctio doloribus eius eligendi est explicabo fugit in laboriosam laudantium officia, placeat praesentium quaerat qui repellat rerum sequi soluta tempora, tenetur velit voluptates. Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusantium animi, aut autem corporis culpa cum cupiditate deserunt error ex facere maiores maxime molestiae nam necessitatibus nostrum nulla officia quia quibusdam quidem quis quisquam quos rem sapiente similique sint temporibus ut! Animi aut blanditiis doloremque fuga ipsum pariatur tempora ullam." )
+                g.mount()
+            });
+        });
+        function makeProductComponent(cardTemplate, name, imageUrl) {
+            const item = $("<li class='glide__slide'> </li>")
+            item.html(cardTemplate)
+
+            const img = item.find('img')
+            img.attr("alt", name)
+            img.attr("src", imageUrl)
+
+            const h3 = item.find("h3")
+            h3.text(name)
+            return item
+        }
+
+        function makeProductBullet(i) {
+            return $(`<button class=\"glide__bullet\" data-glide-dir=\"=${i}\"></button>`)
+        }
+
+        g.on('run', function() {
+            const paragraph = $("article p")
+            paragraph.text(dataLst[g.index].description + ": Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus alias amet at atque culpa cumque debitis deserunt distinctio doloribus eius eligendi est explicabo fugit in laboriosam laudantium officia, placeat praesentium quaerat qui repellat rerum sequi soluta tempora, tenetur velit voluptates. Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusantium animi, aut autem corporis culpa cum cupiditate deserunt error ex facere maiores maxime molestiae nam necessitatibus nostrum nulla officia quia quibusdam quidem quis quisquam quos rem sapiente similique sint temporibus ut! Animi aut blanditiis doloremque fuga ipsum pariatur tempora ullam." )
+        })
+    </script>
+</main>
