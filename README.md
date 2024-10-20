@@ -22,7 +22,7 @@ with an InMemoryDatabase. There is only one relevant rest endpoint
 at `/product` that returns a list of products modeled with just with 
 id, name, description and imageUrl.
 
-![alt text](http://url/to/img.png)
+![showcase](https://github.com/RedJocker/ShowcaseJqueryBoot/blob/main/assets/showcase.gif)
 
 
 The module diophoneexercise is an exercise proposed by DIO 
@@ -32,4 +32,4 @@ a console application with the exercise result.
 A high level class diagram of diophoneexercise 
 is provided on its internal README.md.
 
-![alt text](http://url/to/img.png)
+![diophoneexercise](https://github.com/RedJocker/ShowcaseJqueryBoot/blob/main/assets/diophoneexercise.gif)
