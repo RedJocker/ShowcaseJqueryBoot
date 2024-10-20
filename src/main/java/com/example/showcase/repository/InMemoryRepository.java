@@ -4,6 +4,7 @@ import com.example.showcase.model.Product;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Map;
 
 @Component
@@ -12,7 +13,7 @@ public class InMemoryRepository {
             1, new Product(
                     1,
                     "Phone name1",
-                    "https://www.learningcomputer.com/blog/wp-content/uploads/2016/11/bigstock-Smart-Phone-With-Blue-Screen-I-29625884.jpg",
+                    "https://static5.depositphotos.com/1000128/486/i/950/depositphotos_4860567-stock-photo-touchscreen-smartphone.jpg",
                     "some product A"
             ),
             2, new Product(
@@ -24,7 +25,7 @@ public class InMemoryRepository {
             3, new Product(
                     3,
                     "Phone name3",
-                    "https://static5.depositphotos.com/1000128/486/i/950/depositphotos_4860567-stock-photo-touchscreen-smartphone.jpg",
+                    "https://www.learningcomputer.com/blog/wp-content/uploads/2016/11/bigstock-Smart-Phone-With-Blue-Screen-I-29625884.jpg",
                     "some product C"
             ),
             4, new Product(
@@ -40,6 +41,6 @@ public class InMemoryRepository {
     }
 
     public Collection<Product> getProducts() {
-        return database.values();
+        return database.values().stream().sorted(Comparator.comparingInt(Product::getId)).toList();
     }
 }
