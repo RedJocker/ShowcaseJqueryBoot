@@ -9,7 +9,7 @@ import java.util.Map;
 
 @Component
 public class InMemoryRepository {
-    private Map<Integer, Product> database = Map.of(
+    private final Map<Integer, Product> database = Map.of(
             1, new Product(
                     1,
                     "Phone name1",
