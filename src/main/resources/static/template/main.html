@@ -111,28 +111,38 @@
             keyboard: true,
             focusAt: "center",
         })
-        let dataLst = []
+        let dataLst = null
+        let cardTemplate = null;
 
-        $.get("../template/card.html", (cardTemplate) => {
+        $.get("../template/card.html", (template) => {
+            cardTemplate = template
+            populateMain(dataLst, cardTemplate)
+        })
 
-            $.get(`/product`, function(data) {
-                dataLst = data
-                const carousel = $(".glide__slides")
-                const nav = $(".glide__bullets")
-                carousel.html("")
-                nav.html("")
-                dataLst.forEach((d, i) => {
-                    const item = makeProductComponent(cardTemplate, d.name, d.imageUrl)
-                    carousel.append(item)
-                    const navBullet = makeProductBullet(i)
-                    nav.append(navBullet)
+        $.get(`/product`, function(data) {
+            dataLst = data
+            populateMain(dataLst, cardTemplate)
+        })
 
-                })
-                const paragraph = $("article p")
-                paragraph.text(dataLst[0].description + ": Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus alias amet at atque culpa cumque debitis deserunt distinctio doloribus eius eligendi est explicabo fugit in laboriosam laudantium officia, placeat praesentium quaerat qui repellat rerum sequi soluta tempora, tenetur velit voluptates. Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusantium animi, aut autem corporis culpa cum cupiditate deserunt error ex facere maiores maxime molestiae nam necessitatibus nostrum nulla officia quia quibusdam quidem quis quisquam quos rem sapiente similique sint temporibus ut! Animi aut blanditiis doloremque fuga ipsum pariatur tempora ullam." )
-                g.mount()
-            });
-        });
+        function populateMain(dataLst, cardTemplate) {
+            if (dataLst === null || cardTemplate === null)
+                return ;
+            const carousel = $(".glide__slides")
+            const nav = $(".glide__bullets")
+            carousel.html("")
+            nav.html("")
+            dataLst.forEach((d, i) => {
+                const item = makeProductComponent(cardTemplate, d.name, d.imageUrl)
+                carousel.append(item)
+                const navBullet = makeProductBullet(i)
+                nav.append(navBullet)
+
+            })
+            const paragraph = $("article p")
+            paragraph.text(dataLst[0].description + ": Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus alias amet at atque culpa cumque debitis deserunt distinctio doloribus eius eligendi est explicabo fugit in laboriosam laudantium officia, placeat praesentium quaerat qui repellat rerum sequi soluta tempora, tenetur velit voluptates. Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusantium animi, aut autem corporis culpa cum cupiditate deserunt error ex facere maiores maxime molestiae nam necessitatibus nostrum nulla officia quia quibusdam quidem quis quisquam quos rem sapiente similique sint temporibus ut! Animi aut blanditiis doloremque fuga ipsum pariatur tempora ullam." )
+            g.mount()
+        }
+
         function makeProductComponent(cardTemplate, name, imageUrl) {
             const item = $("<li class='glide__slide'> </li>")
             item.html(cardTemplate)
